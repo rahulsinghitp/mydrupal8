@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * - Provide a configuration in site settings to store an API key
+ * - Provide json data of content
+ */
+
+use \Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ */
+function json_content_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state) {
+
+    // Change text of Submit button
+    $form['actions']['submit']['#value'] = t('Update Configuration');
+
+    // A form field to store Site API Key
+    $form['site_api_key'] = array(
+      '#type' => 'textfield',
+      '#title' => t("Site API Key"),
+      '#description' => t('Store site api key which is required to access json content'),
+      '#default_value' => !empty(Drupal::config('system.site')->get('siteapikey')) ? Drupal::config('system.site')->get('siteapikey') : t('No API Key Yet'),
+    );
+    $form['actions']['submit']['#submit'][] = 'json_content_system_site_information_settings_custom_submit';
+}
+
+/**
+ * Custom form submit of System site information settings form
+ * - Adding a new field for Site API Key through which we can access json content.
+ */
+function json_content_system_site_information_settings_custom_submit(&$form, FormStateInterface $form_state) {
+    $config = Drupal::configFactory()->getEditable('system.site');
+    $site_api_key = $form_state->getValue('site_api_key');
+    $config->set('siteapikey', $site_api_key)->save();
+    drupal_set_message('Site API Key has saved been saved by value ' . $site_api_key);
+}

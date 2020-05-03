@@ -1,0 +1,4 @@
+name: "Json Content"
+description: "Provide json data of content and manages there administration settings"
+type: module
+core: 8.x

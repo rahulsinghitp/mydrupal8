@@ -1,0 +1,7 @@
+json_content.page_json:
+  path: '/page_json/{site_api_key}/{node}'
+  defaults:
+    _controller: '\Drupal\json_content\Controller\PageJson::getjsondata'
+    _title: 'Json Content of Page'
+  requirements:
+    _custom_access: '\Drupal\json_content\Controller\PageJson::accesjsondata'

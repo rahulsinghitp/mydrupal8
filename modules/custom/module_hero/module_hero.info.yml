@@ -1,0 +1,4 @@
+name: "Module Hero"
+description: "Module hero for testing"
+type: module
+core: 8.x

@@ -1,0 +1,15 @@
+recharge_receipt.content:
+  path: '/hello'
+  defaults:
+    _controller: '\Drupal\recharge_receipt\Controller\HelloController::content'
+    _title: 'Hello World'
+  requirements:
+    _permission: 'access content'
+
+recharge_receipt.form:
+  path: '/resume-form'
+  defaults:
+    _form: '\Drupal\recharge_receipt\Form\ResumeForm'
+    _title: 'Resume Form'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,36 @@
+<?php
+
+/** 
+ * File for Recharge receipt module
+*/
+
+use Drupal\file\Entity\File;
+
+function recharge_receipt_preprocess_node(&$variables) {
+
+	// Load a single node.
+	$node = $variables['node'];
+	$view_mode = $variables['view_mode'];
+	if ($view_mode != 'pdf') {
+		return;
+	}
+	if ($node->hasField('field_amount') && !$node->field_amount->isEmpty()) {
+		$variables['amount'] = $node->field_amount->value;
+	}
+
+	if ($node->hasField('field_phone_number') && !$node->field_phone_number->isEmpty()) {
+		$variables['phone_number'] = $node->field_phone_number->value;
+	}
+
+	if (!$node->field_logo->isEmpty()) {
+		$file = File::load($node->field_logo->target_id);
+		$url = $file->url();
+		$variables['logo_image_url'] = $url;
+	}
+
+	if (!$node->field_recharge_date->isEmpty()) {
+		$variables['recharge_date'] = date('d-F-Y', strtotime($node->field_recharge_date->value));
+	}
+
+	$variables['transaction_refrence_number'] = mt_rand(1000000000, 100000000000);
+}

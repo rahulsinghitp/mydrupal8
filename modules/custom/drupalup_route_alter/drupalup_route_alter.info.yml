@@ -1,0 +1,4 @@
+name: Drupalup Route ALter
+description: ALter login pages
+type: module
+core: 8.x
